@@ -6,6 +6,7 @@
 	    "override_hero"     "npc_dota_hero_sven"
 	    "Model"             "models\heroes\sven\sven.vmdl"
 	    "SoundSet"          "n_creep_Melee"//"Hero_Sven"  
+	    "ModelScale"            "1"
 	
 	    "Ability1"        "SVE_KICK"
 	    "Ability2"        "SVE_CLEAVE" 

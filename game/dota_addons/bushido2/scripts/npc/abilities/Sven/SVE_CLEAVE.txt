@@ -18,7 +18,7 @@
 	  }
 
 	  "AbilityCastPoint"		"0.95"//57 frames
-	  "AnimationPlaybackRate"  	"1.25"//1.25
+	  "AnimationPlaybackRate"  	"1.5"//1.25
 	  "AbilityCastAnimation" 	"ACT_DOTA_CAST_ABILITY_2"
 
 	  "AbilityCooldown"	   		"0"

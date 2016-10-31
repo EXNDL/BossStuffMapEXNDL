@@ -1,0 +1,149 @@
+	"ITEM_SVE_ROLL" //Roll
+	{
+	  // General
+	  //-------------------------------------------------------------------------------------------------------------
+	  "BaseClass"       			"item_datadriven"
+	  "ID"							"1033"
+	  "ItemShareability" 			"ITEM_NOT_SHAREABLE"   
+	  "AbilityBehavior"       		"DOTA_ABILITY_BEHAVIOR_DIRECTIONAL| DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"         
+	  "AbilityUnitTargetTeam"     	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+	  "AbilityUnitTargetType"     	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"     
+	  "AbilityUnitTargetFlags"    	"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+	  "SpellImmunityType"       	"SPELL_IMMUNITY_ENEMIES_NO"
+	  "AbilityUnitDamageType"     	"" 
+	  "AbilityTextureName"      	"item_winter_stocking"
+
+	  "ItemCost" "100"
+		"ItemKillable" "0" 
+		"ItemSellable" "0"
+		"ItemPurchasable" "0"
+		"ItemDroppable" "0"
+
+	  //"precache"
+	  //{
+	  //}
+
+	  "AbilityCastPoint"        "0.5"//30 frames
+	  "AnimationPlaybackRate"  	"1.7"//1.4
+	  "AbilityCastAnimation" 	"ACT_DOTA_RAZE_1"
+	  "AbilityCooldown"       	"1"//3
+	  "AbilityDamage"         	"0"
+	  "AbilityManaCost"       	"0"
+	  
+	  "AbilitySpecial"
+	  {
+	    "01"
+	    {
+	      	"var_type"        		"FIELD_INTEGER"
+	      	"dash_distance"         "400"
+	    }
+	    "02"
+	    {
+	      	"var_type"        		"FIELD_INTEGER"
+	      	"dash_speed"         	"800"
+	    }
+	    "03"
+		{
+			"var_type"				"FIELD_FLOAT"
+			"dash_height"			"20"// 20 = no height
+		}
+		"03"
+		{
+			"var_type"				"FIELD_INTEGER"
+			"dash_direction"		"1" //1f 2r 3b 4l
+		}
+	    "05"
+		{
+			"var_type"				"FIELD_FLOAT"
+			"knockback_max_distance"	"25"
+		}
+		"06"
+		{
+			"var_type"				"FIELD_INTEGER"
+			"knockback_height"		"25"
+		}
+		"07"
+		{
+			"var_type"				"FIELD_FLOAT"
+			"knockback_duration"	"0.1"
+		}
+		"08"
+		{
+			"var_type"				"FIELD_FLOAT"
+			"knockback_duration"	"0.1"
+		}
+
+
+
+	  }
+	  "OnAbilityPhaseStart"
+	  {
+   	  	"ApplyModifier"
+  		{
+  			"ModifierName"	"modifier_self_disable"
+  			"Target"		"CASTER"
+  		}
+          "DelayedAction"
+        {
+          "Delay"         "0.4833333333"//29 frames
+          "Action"    
+          {
+          "ApplyModifier"
+            {
+              "ModifierName"  "modifier_idle"
+              "Target"        "CASTER"
+            }
+          }
+        }
+
+	  	"RunScript"
+		{
+			"ScriptFile"	"heroes/shared/dash.lua"
+			"Function"		"dash_forward"
+		}
+		"ApplyMotionController"
+		{
+		    "Target" 		"CASTER"
+		    "ScriptFile"    "heroes/shared/dash.lua"
+		    "HorizontalControlFunction" "DashHorizonal"
+		    "VerticalControlFunction" 	"DashVertical"         
+		}
+	  }
+
+    "OnSpellStart"
+    {
+
+    }
+	  	"Modifiers"
+		{
+			"modifier_self_disable"
+		    {   
+		        "Passive" "1"
+		        "Duration" "0.35"
+		        "States"
+		        {
+		        	"MODIFIER_STATE_COMMAND_RESTRICTED" "MODIFIER_STATE_VALUE_ENABLED"
+		        }
+		    }
+
+		    "modifier_invulnerable"
+		    {   
+		        "Passive" "1"
+		       //"IsHidden"         "1"
+		        "Duration" "0.083333333333"// 5 frames out of 60
+		        "States"
+		        {
+		        	"MODIFIER_STATE_INVULNERABLE" "MODIFIER_STATE_VALUE_ENABLED"
+		        }
+		    }
+
+		    "modifier_idle"
+			{
+	        "Passive" "1"
+	        "Duration" "0.1"
+	        "OverrideAnimation"   "ACT_DOTA_IDLE"
+	        
+			}
+		}
+
+	}

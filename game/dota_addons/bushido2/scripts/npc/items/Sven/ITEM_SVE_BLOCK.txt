@@ -1,0 +1,214 @@
+	"ITEM_SVE_BLOCK" //Block
+	{
+	  // General
+	  //-------------------------------------------------------------------------------------------------------------
+	  "BaseClass"       			"item_datadriven"
+	  "ID"							"1836"
+	  "ItemShareability" 			"ITEM_NOT_SHAREABLE"   
+	  "AbilityBehavior"       		"DOTA_ABILITY_BEHAVIOR_DIRECTIONAL| DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"         
+	  "AbilityUnitTargetTeam"     	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+	  "AbilityUnitTargetType"     	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"     
+	  "AbilityUnitTargetFlags"    	"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+	  "SpellImmunityType"       	"SPELL_IMMUNITY_ENEMIES_NO"
+	  "AbilityUnitDamageType"     	"" 
+	  "AbilityTextureName"      	"item_vanguard"
+		"ItemCost" "100"
+		"ItemKillable" "0" 
+		"ItemSellable" "0"
+		"ItemPurchasable" "0"
+		"ItemDroppable" "0"
+	  "precache"
+	  {
+	  	"particle"				"particles/items3_fx/mango_active.vpcf"
+	  	"soundfile"				"soundevents/game_sounds_items.vsndevts"
+	  	"soundfile"				"soundevents/game_sounds_heroes/game_sounds_chaos_knight.vsndevts"
+	  	"soundfile" 			"bushido2/soundevents/game_sounds_custom.vsndevts"
+	  	"soundfile"				"soundevents/game_sounds_ui.vsndevts"
+	  }
+
+	  "AbilityCastPoint"        "0.75"
+	  "AnimationPlaybackRate"  	"0.75"
+	  "AbilityCastAnimation" 	"ACT_DOTA_RAZE_2"
+	  "AbilityCooldown"       	"0"
+	  "AbilityDamage"         	"0"
+	  "AbilityManaCost"       	"0"
+
+	  "AbilitySpecial"
+	  {
+	    "01"
+	    {
+	      "var_type"        "FIELD_INTEGER"
+	      "bonus_armor"     "40"
+	    }
+	    "02"
+	    {
+	      "var_type"        "FIELD_INTEGER"
+	      "mana_restore"    "25"
+	    }
+	    "03"
+	    {
+	      "var_type"        "FIELD_INTEGER"
+	      "duration"    	"0.75"
+	    }
+	    "04"
+        {
+            "var_type"          "FIELD_INTEGER"
+            "side_angle"        "110"
+        }
+        "05"
+        {
+            "var_type"          "FIELD_INTEGER"
+            "back_angle"        "70"
+        }
+        "06"
+        {
+            "var_type"          "FIELD_FLOAT"
+            "reflect_duration"  "0.25"
+        }
+        "07"
+        {
+            "var_type"          "FIELD_FLOAT"
+            "stun_duration"     "1"
+        }
+        "08"
+        {
+            "var_type"          "FIELD_INTEGER"
+            "radius"            "500"
+        }
+	  }
+
+	  "OnAbilityPhaseStart"
+	  {
+
+            "FireSound"
+            {
+                "Target"                    "CASTER"
+                "EffectName"                "ui.inv_drop_metalheavy"
+            }
+
+         "DelayedAction"
+        {
+          "Delay"         "0.03333333333"//2 frames
+          "Action"    
+          {
+
+
+
+	  		"ApplyModifier"
+	  		{
+	  			"ModifierName"	"modifier_bonus_armor"
+	  			"Target"		"CASTER"
+	  		}
+	        "RunScript"
+	        {
+	            "ScriptFile"                "heroes/sven/block.lua"
+	            "Function"                  "parry"
+	        }
+          }
+        }
+
+	  	"ApplyModifier"
+  		{
+  			"ModifierName"	"modifier_self_disable"
+  			"Target"		"CASTER"
+  		}
+
+ 			"FireEffect"
+            {
+                "EffectName"                "particles/econ/items/sven/sven_warcry_ti5/sven_warcry_armor_buff_model_glow_b_ti_5.vpcf"
+                "EffectAttachType"          "attach_origin"
+                "Target"                    "TARGET"
+                "ControlPointEntities"
+                {
+                    "TARGET"    "attach_origin"
+                    "TARGET"    "attach_origin"
+                    "TARGET"    "attach_origin"
+                    "TARGET"    "attach_origin" //CP3 has a child explosion origin
+                }
+            }
+  		
+	  }
+
+	  "OnSpellStart"
+	  {
+	  }
+	  
+		"Modifiers"
+		{
+			"modifier_self_disable"
+		    {   
+		        "Passive" "1"
+		        "Duration" "0.75"
+		        "States"
+		        {
+		            "MODIFIER_STATE_COMMAND_RESTRICTED" "MODIFIER_STATE_VALUE_ENABLED"
+		        }
+		    }
+
+			"modifier_bonus_armor"
+			{
+				"IsBuff"	"1"
+				"Duration"	"0.65"
+				"StatusEffectName"     	"particles/econ/items/effigies/status_fx_effigies/status_effect_statue_compendium_2014_radiant.vpcf"
+
+
+
+
+			"OnTakeDamage"
+			{
+				"RunScript"
+				{
+					"ScriptFile"	"heroes/sven/block.lua"
+					"Function"		"mana_restore"
+				}
+				"FireSound"
+                {
+                    "Target"                    "CASTER"
+                    "EffectName"                "DOTA_Item.ClarityPotion.Activate"
+                    //"EffectName"                "Hero_ChaosKnight.ChaosBolt.Impact"
+                }
+
+		         "DelayedAction"
+		        {
+		          "Delay"         "0.01"
+		          "Action"    
+		          {
+	                "FireSound"
+	                {
+	                    "Target"                    "CASTER"
+	                    "EffectName"                "sounds/urien_block.vsnd"
+	                }
+		          }
+		      	}
+			}
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_armor"
+				}
+				"States"
+				{
+					"MODIFIER_STATE_MAGIC_IMMUNE" 				"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+			"modifier_bonus_armor_2"
+			{
+				"OnCreated"
+	            {
+
+	            }
+				"IsBuff"	"1"
+				"Duration"	"3"
+				"StatusEffectName"     "particles/econ/items/effigies/status_fx_effigies/status_effect_statue_compendium_2014_radiant.vpcf"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_armor"
+				}
+				"States"
+				{
+					"MODIFIER_STATE_MAGIC_IMMUNE" 				"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+		}
+	}
+

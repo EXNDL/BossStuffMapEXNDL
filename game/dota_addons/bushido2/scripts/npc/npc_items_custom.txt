@@ -1,0 +1,548 @@
+"DOTAAbilities"
+{
+	"item_containers_lua_pack"
+	  {
+	    // General
+	    //-------------------------------------------------------------------------------------------------------------
+	    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+	    "ID"              "1835"
+	    "BaseClass"         "item_lua"
+	    "AbilityTextureName"        "item_present"
+	    "ScriptFile"          "libraries/abilities/item_containers_lua_pack.lua"
+	    "MaxLevel"            "1"
+	
+	    "ItemCost"            "0"
+	    "ItemPurchasable"          "0"
+	    "ItemKillable"             "0"
+	    "ItemDroppable"            "0"
+	    "ItemSellable"             "0"
+	    "ItemCanChangeContainer"   "0"
+	    
+	    // Casting
+	    //-------------------------------------------------------------------------------------------------------------
+	    "AbilityCastRange"        "0"
+	
+	    // Time   
+	    //-------------------------------------------------------------------------------------------------------------
+	    "AbilityCooldown"       "0"
+	
+	    // Cost
+	    //-------------------------------------------------------------------------------------------------------------
+	    "AbilityManaCost"       "0 0 0 0"
+	  }
+	//Shield
+	  "item_example_item"
+	  {
+	    "ID"              "1836"
+	    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+	    "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_ENEMY"
+	    "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_HERO"
+	    "BaseClass"           "item_datadriven"
+	    "AbilityCastAnimation"      "ACT_DOTA_DISABLED"
+	    "AbilityTextureName"      "item_example_item"
+	
+	    // Stats
+	    //-------------------------------------------------------------------------------------------------------------
+	    "AbilityCastRange"        "900"
+	    "AbilityCastPoint"        "0.2"
+	    "AbilityCooldown"       "13.0"
+	
+	    // Item Info
+	    //-------------------------------------------------------------------------------------------------------------
+	    "AbilityManaCost"       "100"
+	    "ItemCost"            "750"
+	    "ItemInitialCharges"      "0"
+	    "ItemDroppable"         "1"
+	    "ItemSellable"          "1"
+	    "ItemRequiresCharges"     "0"
+	    "ItemShareability"        "ITEM_NOT_SHAREABLE"
+	    "ItemDeclarations"        "DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+	    
+	    "MaxUpgradeLevel"       "1"
+	    "ItemBaseLevel"         "1"
+	    
+	    "precache"
+	    {
+	      "particle"              "particles/frostivus_herofx/queen_shadow_strike_linear_parent.vpcf"
+	      "particle_folder"       "particles/test_particle"
+	      "soundfile"             "soundevents/game_sounds_heroes/game_sounds_abaddon.vsndevts"
+	    }
+	    "OnSpellStart"
+	    {
+	      "LinearProjectile"
+	      {
+	        "EffectName"      "particles/frostivus_herofx/queen_shadow_strike_linear_parent.vpcf"
+	        "MoveSpeed"       "%speed"
+	        //"StartPosition"   "attach_attack1"
+	        "FixedDistance"   "%distance"
+	        "StartRadius"     "%radius"
+	        "EndRadius"       "%radius"
+	        "TargetTeams"     "DOTA_UNIT_TARGET_TEAM_ENEMY"
+	        "TargetTypes"     "DOTA_UNIT_TARGET_HERO"
+	        "TargetFlags"     "DOTA_UNIT_TARGET_FLAG_NONE"
+	        "HasFrontalCone"    "0"
+	        "ProvidesVision"    "0"
+	        "VisionRadius"      "0"
+	      }
+	      "FireSound"
+	      {
+	        "EffectName"    "Hero_Abaddon.AphoticShield.Cast"
+	        "Target"        "CASTER"
+	      }
+	      "ApplyModifier"
+	      {
+	        "Target"      "CASTER"
+	        "ModifierName"  "modifier_item_shield"
+	      }
+	    }
+	    
+	    "OnProjectileHitUnit"
+	    {     
+	      "DeleteOnHit" "0"
+	      "Damage"
+	      {
+	        "Target"      "TARGET"
+	        "Type"    "DAMAGE_TYPE_PURE"
+	        "Damage"  "%damage"
+	      }
+	    }
+	    
+	    "Modifiers"
+	    {
+	      "modifier_item_shield"
+	      {
+	        "EffectName"    "particles/test_particle/damage_immunity.vpcf"
+	        "EffectAttachType"  "follow_origin"
+	        "Target"      "CASTER"
+	        
+	        "Duration" "%duration"
+	        "TextureName" "abaddon_aphotic_shield"
+	        "Properties"
+	        {
+	          "MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE"    "%damage_reduction"
+	        }
+	      }
+	
+	      "modifier_item_ex"
+	      {
+	        "Passive" "1"
+	        "Attributes"  "MODIFIER_ATTRIBUTE_MULTIPLE"
+	
+	        "Properties"
+	        {
+	          "MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"    "33"
+	        }
+	      }
+	
+	      "modifier_item_ex2"
+	      {
+	        "Passive" "1"
+	
+	        "Properties"
+	        {
+	          "MODIFIER_PROPERTY_STATS_AGILITY_BONUS"    "3"
+	        }
+	      }
+	    }
+	    
+	    // Special  
+	    //-------------------------------------------------------------------------------------------------------------
+	    "AbilitySpecial"
+	    {
+	      "01"
+	      {
+	        "var_type"        "FIELD_FLOAT"
+	        "duration"        "4.0"
+	      }
+	      
+	      "02"
+	      {
+	        "var_type"        "FIELD_INTEGER"
+	        "damage_reduction"    "-50"
+	      }
+	      "03"
+	      {
+	        "var_type"        "FIELD_INTEGER"
+	        "radius"          "150"
+	      }
+	      "04"
+	      {
+	        "var_type"        "FIELD_INTEGER"
+	        "speed"           "1800"
+	      }
+	      "05"
+	      {
+	        "var_type"        "FIELD_FLOAT"
+	        "distance"        "900"
+	      }
+	      "06"
+	      {
+	        "var_type"        "FIELD_INTEGER"
+	        "damage"          "125"
+	      }
+	    }
+	  }
+	"ITEM_SVE_BLOCK" //Block
+	{
+	  // General
+	  //-------------------------------------------------------------------------------------------------------------
+	  "BaseClass"       			"item_datadriven"
+	  "ID"							"1836"
+	  "ItemShareability" 			"ITEM_NOT_SHAREABLE"   
+	  "AbilityBehavior"       		"DOTA_ABILITY_BEHAVIOR_DIRECTIONAL| DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"         
+	  "AbilityUnitTargetTeam"     	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+	  "AbilityUnitTargetType"     	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"     
+	  "AbilityUnitTargetFlags"    	"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+	  "SpellImmunityType"       	"SPELL_IMMUNITY_ENEMIES_NO"
+	  "AbilityUnitDamageType"     	"" 
+	  "AbilityTextureName"      	"item_vanguard"
+		"ItemCost" "100"
+		"ItemKillable" "0" 
+		"ItemSellable" "0"
+		"ItemPurchasable" "0"
+		"ItemDroppable" "0"
+	  "precache"
+	  {
+	  	"particle"				"particles/items3_fx/mango_active.vpcf"
+	  	"soundfile"				"soundevents/game_sounds_items.vsndevts"
+	  	"soundfile"				"soundevents/game_sounds_heroes/game_sounds_chaos_knight.vsndevts"
+	  	"soundfile" 			"bushido2/soundevents/game_sounds_custom.vsndevts"
+	  	"soundfile"				"soundevents/game_sounds_ui.vsndevts"
+	  }
+
+	  "AbilityCastPoint"        "0.75"
+	  "AnimationPlaybackRate"  	"0.75"
+	  "AbilityCastAnimation" 	"ACT_DOTA_RAZE_2"
+	  "AbilityCooldown"       	"0"
+	  "AbilityDamage"         	"0"
+	  "AbilityManaCost"       	"0"
+
+	  "AbilitySpecial"
+	  {
+	    "01"
+	    {
+	      "var_type"        "FIELD_INTEGER"
+	      "bonus_armor"     "40"
+	    }
+	    "02"
+	    {
+	      "var_type"        "FIELD_INTEGER"
+	      "mana_restore"    "25"
+	    }
+	    "03"
+	    {
+	      "var_type"        "FIELD_INTEGER"
+	      "duration"    	"0.75"
+	    }
+	    "04"
+        {
+            "var_type"          "FIELD_INTEGER"
+            "side_angle"        "110"
+        }
+        "05"
+        {
+            "var_type"          "FIELD_INTEGER"
+            "back_angle"        "70"
+        }
+        "06"
+        {
+            "var_type"          "FIELD_FLOAT"
+            "reflect_duration"  "0.25"
+        }
+        "07"
+        {
+            "var_type"          "FIELD_FLOAT"
+            "stun_duration"     "1"
+        }
+        "08"
+        {
+            "var_type"          "FIELD_INTEGER"
+            "radius"            "500"
+        }
+	  }
+
+	  "OnAbilityPhaseStart"
+	  {
+
+            "FireSound"
+            {
+                "Target"                    "CASTER"
+                "EffectName"                "ui.inv_drop_metalheavy"
+            }
+
+         "DelayedAction"
+        {
+          "Delay"         "0.03333333333"//2 frames
+          "Action"    
+          {
+
+
+
+	  		"ApplyModifier"
+	  		{
+	  			"ModifierName"	"modifier_bonus_armor"
+	  			"Target"		"CASTER"
+	  		}
+	        "RunScript"
+	        {
+	            "ScriptFile"                "heroes/sven/block.lua"
+	            "Function"                  "parry"
+	        }
+          }
+        }
+
+	  	"ApplyModifier"
+  		{
+  			"ModifierName"	"modifier_self_disable"
+  			"Target"		"CASTER"
+  		}
+
+ 			"FireEffect"
+            {
+                "EffectName"                "particles/econ/items/sven/sven_warcry_ti5/sven_warcry_armor_buff_model_glow_b_ti_5.vpcf"
+                "EffectAttachType"          "attach_origin"
+                "Target"                    "TARGET"
+                "ControlPointEntities"
+                {
+                    "TARGET"    "attach_origin"
+                    "TARGET"    "attach_origin"
+                    "TARGET"    "attach_origin"
+                    "TARGET"    "attach_origin" //CP3 has a child explosion origin
+                }
+            }
+  		
+	  }
+
+	  "OnSpellStart"
+	  {
+	  }
+	  
+		"Modifiers"
+		{
+			"modifier_self_disable"
+		    {   
+		        "Passive" "1"
+		        "Duration" "0.75"
+		        "States"
+		        {
+		            "MODIFIER_STATE_COMMAND_RESTRICTED" "MODIFIER_STATE_VALUE_ENABLED"
+		        }
+		    }
+
+			"modifier_bonus_armor"
+			{
+				"IsBuff"	"1"
+				"Duration"	"0.65"
+				"StatusEffectName"     	"particles/econ/items/effigies/status_fx_effigies/status_effect_statue_compendium_2014_radiant.vpcf"
+
+
+
+
+			"OnTakeDamage"
+			{
+				"RunScript"
+				{
+					"ScriptFile"	"heroes/sven/block.lua"
+					"Function"		"mana_restore"
+				}
+				"FireSound"
+                {
+                    "Target"                    "CASTER"
+                    "EffectName"                "DOTA_Item.ClarityPotion.Activate"
+                    //"EffectName"                "Hero_ChaosKnight.ChaosBolt.Impact"
+                }
+
+		         "DelayedAction"
+		        {
+		          "Delay"         "0.01"
+		          "Action"    
+		          {
+	                "FireSound"
+	                {
+	                    "Target"                    "CASTER"
+	                    "EffectName"                "sounds/urien_block.vsnd"
+	                }
+		          }
+		      	}
+			}
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_armor"
+				}
+				"States"
+				{
+					"MODIFIER_STATE_MAGIC_IMMUNE" 				"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+			"modifier_bonus_armor_2"
+			{
+				"OnCreated"
+	            {
+
+	            }
+				"IsBuff"	"1"
+				"Duration"	"3"
+				"StatusEffectName"     "particles/econ/items/effigies/status_fx_effigies/status_effect_statue_compendium_2014_radiant.vpcf"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_armor"
+				}
+				"States"
+				{
+					"MODIFIER_STATE_MAGIC_IMMUNE" 				"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+		}
+	}
+
+	"ITEM_SVE_ROLL" //Roll
+	{
+	  // General
+	  //-------------------------------------------------------------------------------------------------------------
+	  "BaseClass"       			"item_datadriven"
+	  "ID"							"1033"
+	  "ItemShareability" 			"ITEM_NOT_SHAREABLE"   
+	  "AbilityBehavior"       		"DOTA_ABILITY_BEHAVIOR_DIRECTIONAL| DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"         
+	  "AbilityUnitTargetTeam"     	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+	  "AbilityUnitTargetType"     	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"     
+	  "AbilityUnitTargetFlags"    	"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+	  "SpellImmunityType"       	"SPELL_IMMUNITY_ENEMIES_NO"
+	  "AbilityUnitDamageType"     	"" 
+	  "AbilityTextureName"      	"item_winter_stocking"
+
+	  "ItemCost" "100"
+		"ItemKillable" "0" 
+		"ItemSellable" "0"
+		"ItemPurchasable" "0"
+		"ItemDroppable" "0"
+
+	  //"precache"
+	  //{
+	  //}
+
+	  "AbilityCastPoint"        "0.5"//30 frames
+	  "AnimationPlaybackRate"  	"1.7"//1.4
+	  "AbilityCastAnimation" 	"ACT_DOTA_RAZE_1"
+	  "AbilityCooldown"       	"1"//3
+	  "AbilityDamage"         	"0"
+	  "AbilityManaCost"       	"0"
+	  
+	  "AbilitySpecial"
+	  {
+	    "01"
+	    {
+	      	"var_type"        		"FIELD_INTEGER"
+	      	"dash_distance"         "400"
+	    }
+	    "02"
+	    {
+	      	"var_type"        		"FIELD_INTEGER"
+	      	"dash_speed"         	"800"
+	    }
+	    "03"
+		{
+			"var_type"				"FIELD_FLOAT"
+			"dash_height"			"20"// 20 = no height
+		}
+		"03"
+		{
+			"var_type"				"FIELD_INTEGER"
+			"dash_direction"		"1" //1f 2r 3b 4l
+		}
+	    "05"
+		{
+			"var_type"				"FIELD_FLOAT"
+			"knockback_max_distance"	"25"
+		}
+		"06"
+		{
+			"var_type"				"FIELD_INTEGER"
+			"knockback_height"		"25"
+		}
+		"07"
+		{
+			"var_type"				"FIELD_FLOAT"
+			"knockback_duration"	"0.1"
+		}
+		"08"
+		{
+			"var_type"				"FIELD_FLOAT"
+			"knockback_duration"	"0.1"
+		}
+
+
+
+	  }
+	  "OnAbilityPhaseStart"
+	  {
+   	  	"ApplyModifier"
+  		{
+  			"ModifierName"	"modifier_self_disable"
+  			"Target"		"CASTER"
+  		}
+          "DelayedAction"
+        {
+          "Delay"         "0.4833333333"//29 frames
+          "Action"    
+          {
+          "ApplyModifier"
+            {
+              "ModifierName"  "modifier_idle"
+              "Target"        "CASTER"
+            }
+          }
+        }
+
+	  	"RunScript"
+		{
+			"ScriptFile"	"heroes/shared/dash.lua"
+			"Function"		"dash_forward"
+		}
+		"ApplyMotionController"
+		{
+		    "Target" 		"CASTER"
+		    "ScriptFile"    "heroes/shared/dash.lua"
+		    "HorizontalControlFunction" "DashHorizonal"
+		    "VerticalControlFunction" 	"DashVertical"         
+		}
+	  }
+
+    "OnSpellStart"
+    {
+
+    }
+	  	"Modifiers"
+		{
+			"modifier_self_disable"
+		    {   
+		        "Passive" "1"
+		        "Duration" "0.35"
+		        "States"
+		        {
+		        	"MODIFIER_STATE_COMMAND_RESTRICTED" "MODIFIER_STATE_VALUE_ENABLED"
+		        }
+		    }
+
+		    "modifier_invulnerable"
+		    {   
+		        "Passive" "1"
+		       //"IsHidden"         "1"
+		        "Duration" "0.083333333333"// 5 frames out of 60
+		        "States"
+		        {
+		        	"MODIFIER_STATE_INVULNERABLE" "MODIFIER_STATE_VALUE_ENABLED"
+		        }
+		    }
+
+		    "modifier_idle"
+			{
+	        "Passive" "1"
+	        "Duration" "0.1"
+	        "OverrideAnimation"   "ACT_DOTA_IDLE"
+	        
+			}
+		}
+
+	}
+}

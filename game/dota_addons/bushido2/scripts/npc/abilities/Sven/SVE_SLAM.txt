@@ -1,0 +1,126 @@
+"SVE_SLAM"
+    {
+      // General
+      //-------------------------------------------------------------------------------------------------------------
+      "BaseClass"                   "ability_datadriven"
+      "AbilityBehavior"             "DOTA_ABILITY_BEHAVIOR_DIRECTIONAL| DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING" 
+      "AbilityType"                 "DOTA_ABILITY_TYPE_ULTIMATE"      
+      "AbilityUnitTargetTeam"       "DOTA_UNIT_TARGET_TEAM_ENEMY"
+      "AbilityUnitTargetType"       "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"     
+      "AbilityUnitTargetFlags"      "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+      "SpellImmunityType"           "SPELL_IMMUNITY_ENEMIES_YES"
+      "AbilityUnitDamageType"       "DAMAGE_TYPE_PHYSICAL"
+      "AbilityTextureName"          "sven_great_cleave"
+      "MaxLevel" "1"
+   
+      "precache"
+      {
+        "soundfile"     "soundevents/game_sounds_heroes/game_sounds_sven.vsndevts"
+      }
+ 
+      "AbilityCastPoint"        "0.6333333333"//38 frames
+      "AnimationPlaybackRate"   "1.3"//1
+      "AbilityCastAnimation"    "ACT_DOTA_CAST_ABILITY_1"
+ 
+      "AbilityCooldown"         "0"
+      "AbilityDamage"           "55"
+      "AbilityManaCost"         "0"
+ 
+      "AbilitySpecial"
+      {
+        "01"
+        {
+          "var_type"        "FIELD_INTEGER"
+          "start_radius"      "33"
+        }
+        "02"
+        {
+          "var_type"        "FIELD_INTEGER"
+          "end_radius"      "30"
+        }
+        "03"
+        {
+          "var_type"        "FIELD_INTEGER"
+          "range"           "205"
+        }
+        "04"
+        {
+          "var_type"        "FIELD_INTEGER"
+          "speed"           "3000"
+        }
+      }
+ 
+      "OnAbilityPhaseStart"
+      {
+        "ApplyModifier"
+        {
+            "ModifierName"  "modifier_self_disable"
+            "Target"        "CASTER"
+        }
+ 
+        "DelayedAction"
+        {
+            "Delay"             "0.26666666667"//16 frames
+            "Action"    
+            {
+                "LinearProjectile"
+                {
+                    "Target" "CASTER"
+                    "MoveSpeed" "%speed"
+                    "StartRadius" "%start_radius"
+                    "StartPosition" "attach_origin"
+                    "EndRadius" "%end_radius"
+                    "FixedDistance" "%range"
+                    "TargetTeams" "DOTA_UNIT_TARGET_TEAM_ENEMY"
+                    "TargetTypes" "DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_HERO"
+                    "TargetFlags" "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+                    "SpellImmunityType"         "SPELL_IMMUNITY_ENEMIES_YES"
+                    "HasFrontalCone" "1"
+                    "ProvidesVision" "0"
+                }
+               
+ 
+                "FireSound"
+                {
+                }
+            }
+        }
+ 
+      }
+ 
+      "OnSpellStart"
+      {
+      }
+     
+ 
+ 
+        "OnProjectileHitUnit"
+        {
+        "DeleteOnHit" "0"
+            "RunScript"
+            {
+                "ScriptFile"    "heroes/shared/physical_damage_peirce.lua"
+                "Function"      "physical_damage_peirce"
+            }
+ 
+            "FireSound"
+            {
+                "EffectName"        "Hero_Sven.Attack"
+                "Target"            "TARGET"
+            }
+        }
+ 
+        "Modifiers"
+        {
+            "modifier_self_disable"
+            {  
+                "Passive" "1"
+               
+                "Duration" "0.6333333333"
+                "States"
+                {
+                    "MODIFIER_STATE_COMMAND_RESTRICTED" "MODIFIER_STATE_VALUE_ENABLED"
+                }
+            }
+        }
+    }

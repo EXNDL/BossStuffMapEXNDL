@@ -1,5 +1,7 @@
 // NOTE: --------------------------------------------- THIS ABILITY REQUIRES troll_warlord_whirling_axes_ranged_datadriven AND troll_warlord_whirling_axes_melee_datadriven TO WORK CORRECTLY ---------------------------------
 "troll_warlord_berserkers_rage_datadriven"
+"DOTAAbilities"
+{
 {
   // General
   //-------------------------------------------------------------------------------------------------------------
@@ -183,4 +185,5 @@
       }
     }
   }
+}
 }

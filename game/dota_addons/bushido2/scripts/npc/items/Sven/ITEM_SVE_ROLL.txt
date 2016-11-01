@@ -1,3 +1,5 @@
+"DOTAAbilities"
+{
 	"ITEM_SVE_ROLL" //Roll
 	{
 	  // General
@@ -147,3 +149,4 @@
 		}
 
 	}
+}

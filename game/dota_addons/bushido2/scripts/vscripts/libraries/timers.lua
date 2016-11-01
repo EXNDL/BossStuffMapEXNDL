@@ -1,4 +1,16 @@
 TIMERS_VERSION = "1.05"
+--Credits: 
+--Timers Library by BMB
+--Modified by Mayheim to support timer culling by script_reload
+--usage: enter negative number for start time ie:
+--[[
+  -- A timer running every second that starts 5 seconds in the future, respects pauses
+  Timers:CreateTimer(-5, function()
+      print ("Hello. I'm running 5 seconds after you called me and then every second thereafter.")
+      return 1.0
+    end
+  )
+]]
 
 --[[
 
@@ -187,6 +199,7 @@ function Timers:HandleEventError(name, event, err)
 end
 
 function Timers:CreateTimer(name, args, context)
+
   if type(name) == "function" then
     if args ~= nil then
       context = args
@@ -209,6 +222,11 @@ function Timers:CreateTimer(name, args, context)
   local now = GameRules:GetGameTime()
   if args.useGameTime ~= nil and args.useGameTime == false then
     now = Time()
+  end
+
+  if args.endTime and args.endTime < 0 then
+    args.endTime = math.abs(args.endTime)
+    args.reloadCull = true
   end
 
   if args.endTime == nil then
@@ -246,6 +264,16 @@ function Timers:RemoveTimers(killAll)
   Timers.timers = timers
 end
 
+function Timers:CullTimers()
+    for k, v in pairs(Timers.timers) do
+      if v.reloadCull then
+        Timers:RemoveTimer(k)
+      end
+    end
+end
+
 if not Timers.timers then Timers:start() end
+
+Timers:CullTimers()
 
 GameRules.Timers = Timers

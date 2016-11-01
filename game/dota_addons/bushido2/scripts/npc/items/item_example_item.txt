@@ -1,3 +1,5 @@
+"DOTAAbilities"
+{
 //Shield
   "item_example_item"
   {
@@ -150,3 +152,4 @@
       }
     }
   }
+}

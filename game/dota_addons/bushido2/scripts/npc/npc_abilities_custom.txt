@@ -8,4 +8,110 @@
 
 "DOTAAbilities"
 {
+	"SVE_CLEAVE_lua"
+	{
+		"BaseClass"	   						"ability_lua"
+		"ScriptFile"						"SVE_CLEAVE_lua"
+
+		"AbilityBehavior"	   				"DOTA_ABILITY_BEHAVIOR_CHANNELLED | DOTA_ABILITY_BEHAVIOR_DIRECTIONAL| DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"		 
+		"AbilityUnitTargetTeam"	 			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"	 			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"	 
+		"AbilityUnitTargetFlags"			"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+		"SpellImmunityType"	   				"SPELL_IMMUNITY_ENEMIES_YES"
+		"AbilityUnitDamageType"	 			"DAMAGE_TYPE_PHYSICAL"
+
+		"AbilityTextureName"	  			"sven_great_cleave_lua"
+		"MaxLevel" 							"1"
+
+
+
+		"AbilityCastPoint"					"0"		//57 frames
+		"AnimationPlaybackRate"  			"1.5"		//1.25
+		"AbilityCastAnimation" 				"ACT_DOTA_CAST_ABILITY_2"
+
+		"AbilityCooldown"	   				"0"
+		"AbilityDamage"		 				"30"
+		"AbilityManaCost"	   				"0"
+
+		"precache"
+		{
+			"soundfile"		"soundevents/game_sounds_heroes/game_sounds_sven.vsndevts"
+		}
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"		"FIELD_INTEGER"
+				"start_radius"	  "195"
+			}
+			"02"
+			{
+				"var_type"		"FIELD_INTEGER"
+				"end_radius"	 	"195"		//124
+			}
+			"03"
+			{
+				"var_type"		"FIELD_INTEGER"
+				"range"		 	"20"
+			}
+			"04"
+			{
+				"var_type"		"FIELD_INTEGER"
+				"speed"			"3000"
+			}
+		}
+
+		"OnAbilityPhaseStart"
+		{
+			"DelayedAction"
+			{
+				"Delay"     		"0.3"// 18 frames
+				"Action"    
+				{
+					"LinearProjectile"
+					{
+						"Target" "CASTER"
+						"MoveSpeed" "%speed"
+						"StartRadius" "%start_radius"
+						"StartPosition" "attach_origin"
+						"EndRadius" "%end_radius"
+						"FixedDistance" "%range"
+						"TargetTeams" "DOTA_UNIT_TARGET_TEAM_ENEMY"
+						"TargetTypes" "DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_HERO"
+						"TargetFlags" "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+						"SpellImmunityType"	   		"SPELL_IMMUNITY_ENEMIES_YES"
+						"HasFrontalCone" "1"
+						"ProvidesVision" "0"
+					}
+
+					"FireSound"
+					{
+					}
+				}
+			}
+		}
+
+		"OnSpellStart"
+		{
+		}
+
+
+
+		"OnProjectileHitUnit"
+		{
+			"DeleteOnHit" "0"
+			"RunScript"
+			{
+				"ScriptFile"	"heroes/shared/physical_damage_peirce.lua"
+				"Function"		"physical_damage_peirce"
+			}
+
+			"FireSound"
+			{
+				"EffectName"		"Hero_Sven.Attack"
+				"Target"			"TARGET"
+			}
+		}
+	}
 }

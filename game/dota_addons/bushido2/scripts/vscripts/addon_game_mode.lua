@@ -33,12 +33,30 @@ function CAddonTemplateGameMode:InitGameMode()
 
 	ListenToGameEvent('npc_spawned', Dynamic_Wrap(CAddonTemplateGameMode, 'OnNPCSpawned'), self)
 
+	GameRules:GetGameModeEntity():SetExecuteOrderFilter( Dynamic_Wrap( CAddonTemplateGameMode, "ExecuteOrderFilter" ), self )
+
 	SendToServerConsole("dota_surrender_on_disconnect 0")	
 	GameRules:EnableCustomGameSetupAutoLaunch(true)
 	GameRules:SetCustomGameSetupAutoLaunchDelay( 1 )
 	GameRules:SetCustomGameSetupRemainingTime( 1 )
 	GameRules:SetCustomGameSetupTimeout( 1 )
 end
+
+function CAddonTemplateGameMode:ExecuteOrderFilter( filterTable )
+	local orderType = filterTable["order_type"]
+	local target = EntIndexToHScript( filterTable["entindex_target"] ) 
+	local unit = EntIndexToHScript( filterTable["units"]["0"] )
+	local ability = EntIndexToHScript( filterTable["entindex_ability"] )
+
+	--pr(filterTable)
+
+	if unit:IsRealHero() and unit:IsChanneling() then
+		return false
+	end
+
+	return true
+end
+
 
 function CAddonTemplateGameMode:OnThink()
 	if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then

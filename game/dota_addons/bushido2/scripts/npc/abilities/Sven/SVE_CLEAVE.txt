@@ -19,12 +19,12 @@
 			"soundfile"		"soundevents/game_sounds_heroes/game_sounds_sven.vsndevts"
 		}
 
-		"AbilityCastPoint"		"0.95"//57 frames
+		"AbilityCastPoint"			"0.95"//57 frames
 		"AnimationPlaybackRate"  	"1.5"//1.25
-		"AbilityCastAnimation" 	"ACT_DOTA_CAST_ABILITY_2"
+		"AbilityCastAnimation" 		"ACT_DOTA_CAST_ABILITY_2"
 
 		"AbilityCooldown"	   		"0"
-		"AbilityDamage"		 	"30"
+		"AbilityDamage"		 		"30"
 		"AbilityManaCost"	   		"0"
 
 		"AbilitySpecial"

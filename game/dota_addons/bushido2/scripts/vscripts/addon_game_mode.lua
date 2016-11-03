@@ -51,6 +51,7 @@ function CAddonTemplateGameMode:ExecuteOrderFilter( filterTable )
 	--pr(filterTable)
 
 	if unit:IsRealHero() and unit:IsChanneling() then
+		pr(unit:GetCurrentActiveAbility():GetName())
 		return false
 	end
 

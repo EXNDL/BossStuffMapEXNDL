@@ -25,8 +25,8 @@
 
 
 
-		"AbilityCastPoint"					"0"		//57 frames
-		"AnimationPlaybackRate"  			"1.5"		//1.25
+		"AbilityCastPoint"					"0"							//57 frames
+		"AnimationPlaybackRate"  			"1.5"						//1.25
 		"AbilityCastAnimation" 				"ACT_DOTA_CAST_ABILITY_2"
 
 		"AbilityCooldown"	   				"0"
@@ -61,56 +61,70 @@
 				"speed"			"3000"
 			}
 		}
+	}
 
-		"OnAbilityPhaseStart"
+
+
+
+
+
+
+	"SVE_BOLT_lua"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"					"ability_lua"
+		"ScriptFile"				"SVE_BOLT_lua"
+
+		"AbilityBehavior"             "DOTA_ABILITY_BEHAVIOR_DIRECTIONAL| DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"       
+		"AbilityUnitTargetTeam"       "DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"       "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"     
+		"AbilityUnitTargetFlags"      "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+		"SpellImmunityType"           "SPELL_IMMUNITY_ENEMIES_YES"
+		"AbilityUnitDamageType"       "DAMAGE_TYPE_PHYSICAL"
+		"AbilityTextureName"          "sven_storm_bolt_lua"
+		"MaxLevel" "1"
+
+		"precache"
 		{
-			"DelayedAction"
-			{
-				"Delay"     		"0.3"// 18 frames
-				"Action"    
-				{
-					"LinearProjectile"
-					{
-						"Target" "CASTER"
-						"MoveSpeed" "%speed"
-						"StartRadius" "%start_radius"
-						"StartPosition" "attach_origin"
-						"EndRadius" "%end_radius"
-						"FixedDistance" "%range"
-						"TargetTeams" "DOTA_UNIT_TARGET_TEAM_ENEMY"
-						"TargetTypes" "DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_HERO"
-						"TargetFlags" "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
-						"SpellImmunityType"	   		"SPELL_IMMUNITY_ENEMIES_YES"
-						"HasFrontalCone" "1"
-						"ProvidesVision" "0"
-					}
-
-					"FireSound"
-					{
-					}
-				}
-			}
+			"particle"      "particles/units/heroes/hero_sven/linear_storm_boltpell_storm_bolt.vpcf"
+			"soundfile"     "soundevents/game_sounds_heroes/game_sounds_sven.vsndevts"
 		}
 
-		"OnSpellStart"
+		"AbilityCastPoint"        "0"							//33 frames
+		"AnimationPlaybackRate"   "1.3"							//1
+		"AbilityCastAnimation"    "ACT_DOTA_CAST_ABILITY_5"
+
+		"AbilityCooldown"         "0"
+		"AbilityDamage"           "10"
+		"AbilityManaCost"         "20"							//0
+
+		"AbilitySpecial"
 		{
-		}
-
-
-
-		"OnProjectileHitUnit"
-		{
-			"DeleteOnHit" "0"
-			"RunScript"
+			"01"
 			{
-				"ScriptFile"	"heroes/shared/physical_damage_peirce.lua"
-				"Function"		"physical_damage_peirce"
+				"var_type"        "FIELD_INTEGER"
+				"start_radius"     "50"
 			}
-
-			"FireSound"
+			"02"
 			{
-				"EffectName"		"Hero_Sven.Attack"
-				"Target"			"TARGET"
+				"var_type"        "FIELD_INTEGER"
+				"end_radius"      "50"
+			}
+			"03"
+			{
+				"var_type"        "FIELD_INTEGER"
+				"range"           "1200"
+			}
+			"04"
+			{
+				"var_type"        "FIELD_INTEGER"
+				"speed"           "2000"
+			}
+			"05"
+			{
+				"var_type"        "FIELD_FLOAT"
+				"stun_duration"   "0.5"
 			}
 		}
 	}

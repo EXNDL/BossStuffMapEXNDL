@@ -48,11 +48,11 @@ end
 function SVE_KICK_lua:OnProjectileHit( hTarget, vPosition )
 	if hTarget == nil then return end
 
-	local knockback_distance = self:GetSpecialValueFor("knockback_distance")
-	local knockback_duration = self:GetSpecialValueFor("knockback_duration")
-	local knockback_height = self:GetSpecialValueFor("knockback_height")
+	local distance = self:GetSpecialValueFor("knockback_distance")
+	local duration = self:GetSpecialValueFor("knockback_duration")
+	local height = self:GetSpecialValueFor("knockback_height")
 
-	ApplyKnockback(hTarget,self:GetCaster(),knockback_distance,knockback_duration,knockback_height,true)
+	ApplyKnockback(hTarget, self:GetCaster(), distance, duration, height, true)
 
 	ApplyDamage({
 		victim = hTarget,

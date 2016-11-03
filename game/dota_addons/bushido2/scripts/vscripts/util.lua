@@ -1,5 +1,5 @@
 function ApplyKnockback(target, center, distance, duration, height, should_stun)
-	if IsValidEntity(center) then
+	if type(center) == "table" and IsValidEntity(center) then
 		center = center:GetAbsOrigin()
 	end
 

@@ -3,6 +3,7 @@ if CAddonTemplateGameMode == nil then
 end
 
 require( 'toolsmode') --Debugging functions
+require( 'util' )
 
 require( 'libraries/timers' )
 require( 'libraries/animations' )

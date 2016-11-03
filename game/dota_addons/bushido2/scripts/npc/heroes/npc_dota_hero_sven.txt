@@ -6,10 +6,10 @@
         "override_hero"     "npc_dota_hero_sven"
         "Model"             "models\heroes\sven\sven.vmdl"
 
-        "Ability1"        "SVE_BOLT"
-        "Ability2"        "SVE_BOLT_lua" 
+        "Ability1"        "SVE_KICK"
+        "Ability2"        "SVE_KICK_lua" 
         "Ability3"        "SVE_CLEAVE_lua" 
-        "Ability4"        ""
+        "Ability4"        "SVE_BOLT_lua"
         "Ability5"        ""
         "Ability6"        ""
         "Ability7"        ""

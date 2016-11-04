@@ -36,6 +36,9 @@ function CAddonTemplateGameMode:InitGameMode()
 
 	GameRules:GetGameModeEntity():SetExecuteOrderFilter( Dynamic_Wrap( CAddonTemplateGameMode, "ExecuteOrderFilter" ), self )
 
+
+	if Debug then SendToServerConsole("dota_easybuy 1")	end
+
 	SendToServerConsole("dota_surrender_on_disconnect 0")	
 	GameRules:EnableCustomGameSetupAutoLaunch(true)
 	GameRules:SetCustomGameSetupAutoLaunchDelay( 1 )
@@ -76,6 +79,28 @@ function CAddonTemplateGameMode:OnNPCSpawned( keys )
 		hero:AddExperience(200, false, true)
 		hero:AddItemByName("ITEM_SVE_BLOCK")
 		hero:AddItemByName("ITEM_SVE_ROLL")
+		hero:AddItemByName("item_target_trigger")
+		hero:AddItemByName("item_trigger")
+
+		for i = 0, hero:GetAbilityCount()-1 do
+			local spell = hero:GetAbilityByIndex(i)
+			if spell then spell:SetLevel(spell:GetMaxLevel()) end
+		end
+		hero:SetAbilityPoints(0)
+	end
+
+	if hero:GetUnitName() == "npc_dota_hero_juggernaut" and hero:GetLevel() == 1 then
+		hero:AddExperience(200, false, true)
+		hero:AddItemByName("ITEM_SVE_BLOCK")
+		hero:AddItemByName("ITEM_SVE_ROLL")
+		hero:AddItemByName("item_target_trigger")
+		hero:AddItemByName("item_trigger")
+
+		--SpawnEntityFromTableSynchronous("prop_dynamic", {model = "models/heroes/sven/sven_mask.vmdl"}):FollowEntity(hero, true)
+		SpawnEntityFromTableSynchronous("prop_dynamic", {model = "models/heroes/sven/sven_belt.vmdl"}):FollowEntity(hero, true)
+		SpawnEntityFromTableSynchronous("prop_dynamic", {model = "models/heroes/sven/sven_gauntlet.vmdl"}):FollowEntity(hero, true)
+		SpawnEntityFromTableSynchronous("prop_dynamic", {model = "models/heroes/sven/sven_shoulder.vmdl"}):FollowEntity(hero, true)
+		SpawnEntityFromTableSynchronous("prop_dynamic", {model = "models/heroes/sven/sven_sword.vmdl"}):FollowEntity(hero, true)
 
 		for i = 0, hero:GetAbilityCount()-1 do
 			local spell = hero:GetAbilityByIndex(i)

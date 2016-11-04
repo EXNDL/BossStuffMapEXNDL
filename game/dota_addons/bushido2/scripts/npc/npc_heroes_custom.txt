@@ -3,4 +3,18 @@
 
 "DOTAHeroes"
 {
+	"npc_dota_hero_juggernaut"
+	{
+		"AbilityLayout"     "6"
+		"Model"             "models\heroes\sven\sven.vmdl"
+
+        "Ability1"        "SVE_SLAM"
+        "Ability2"        "SVE_SLAM_lua" 
+        "Ability3"        "SVE_CLEAVE_lua" 
+        "Ability4"        "SVE_BOLT_lua"
+        "Ability5"        "SVE_KICK_lua"
+        "Ability6"        "SVE_LUNGE_lua"
+
+        "AttackCapabilities"    "DOTA_UNIT_CAP_NO_ATTACK"
+	}
 }

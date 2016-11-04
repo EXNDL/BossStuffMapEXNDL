@@ -17,7 +17,7 @@ COLLIDER_AABOX = 2
 PHYSICS_THINK = 0.01
 
 if Physics == nil then
-  print ( '[PHYSICS] creating Physics' )
+  print ( '[Physics] creating Physics' )
   Physics = {}
   Physics.__index = Physics
 end

@@ -1,5 +1,5 @@
 SVE_BOLT_lua = class({})
-LinkLuaModifier( "modifier_sven_storm_bolt_lua", LUA_MODIFIER_MOTION_NONE )
+LinkLuaModifier( "modifier_sven_storm_bolt_lua", "abilities/modifier_sven_storm_bolt_lua", LUA_MODIFIER_MOTION_NONE )
 
 function SVE_BOLT_lua:OnSpellStart() 
 	pr("wah")

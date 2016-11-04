@@ -1,16 +1,16 @@
 "DOTAHeroes"
 {
-    "npc_dota_hero_sven"
+    "npc_dota_hero_lycan"
     {
-        "AbilityLayout"     "6"
-        "override_hero"     "npc_dota_hero_sven"
-        "Model"             "models\heroes\sven\sven.vmdl"
+        "AbilityLayout"     "4"
+        "override_hero"     "npc_dota_hero_lycan"
+        "Model"             "models\summon_wolves_reference2.vmdl"
 
-        "Ability1"        "SVE_LUNGE"
-        "Ability2"        "SVE_LUNGE_lua" 
-        "Ability3"        "SVE_CLEAVE_lua" 
-        "Ability4"        "SVE_BOLT_lua"
-        "Ability5"        "SVE_KICK_lua"
+        "Ability1"        ""
+        "Ability2"        "" 
+        "Ability3"        "" 
+        "Ability4"        ""
+        "Ability5"        ""
         "Ability6"        ""
         "Ability7"        ""
         "Ability8"        ""
@@ -26,7 +26,7 @@
         "ArmorPhysical"       "0"                 // Physical protection. //16 is 50%?
         "MagicalResistance"       "0"                 // Magical protection (percentage).
 
-        "AttackCapabilities"    "DOTA_UNIT_CAP_NO_ATTACK"
+        "AttackCapabilities"    "DOTA_UNIT_CAP_MELEE_ATTACK"
         "AttackDamageMin"     "1"                   // Damage range min.
         "AttackDamageMax"     "1"                   // Damage range max.
 
@@ -43,7 +43,7 @@
         "BountyGoldMax"       "0"                   // Gold earned max.
 
         //"BoundsHullName"      "DOTA_HULL_SIZE_HERO"
-        //"RingRadius"        "70"
+        //"RingRadius"        "0"//70
 
         "MovementCapabilities"    "DOTA_UNIT_CAP_MOVE_GROUND"
         "MovementSpeed"       "300"                 // Speed.
